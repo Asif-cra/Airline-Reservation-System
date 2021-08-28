@@ -57,6 +57,67 @@
               </div>
             </nav>
         </header>
+        <div class="container text-center p-4 mb-2 mt-4">
+          <h1 style="color:A19CA4;" class="mt-4"> <strong><u> Make changes to your profile</u></strong> </h1>
+        </div>
+        <form action="">
+          <div class="container text-start">
+                <div class="row">             
+                  <div class="col-lg-6 offset-lg-3 ">   
+                    <div class="form mx-4 mb-2 mt-4 ">
+                      <label for="oemail" class="form-label"><b>Old Email</b></label>
+                      <input type="text" id="oemail" class="form-control" placeholder="Enter old email" required/>                     
+                    </div>
+                    <div class="form mx-4 mb-2 mt-4 ">
+                      <label for="nemail" class="form-label"><b>New Email</b></label>
+                      <input type="text" id="nemail" class="form-control" placeholder="Enter new email" required/>                     
+                    </div>
+                  </div>
+                  <div class="col-lg-6 offset-lg-3 ">   
+                    <div class="form mx-4 my-2 ">
+                      <label for="opassword" class="form-label">Old password</label>
+                      <input type="password" id="opassword" class="form-control" placeholder="Enter old password"/>                     
+                    </div>
+                  </div>
+                  <div class="col-lg-6 offset-lg-3 ">   
+                    <div class="form mx-4 my-2 ">
+                      <label for="npassword" class="form-label">New password</label>
+                      <input type="password" id="npassword" class="form-control" placeholder="Enter new password"/>                     
+                    </div>
+                  </div>
+                    <div class="col-lg-6 offset-lg-3 ">   
+                      <div class="form mx-4 my-2 ">
+                        <button type="submit" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#changePModal">Submit</button>
+                        <button type="submit" class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#changePModal">Delete Account</button>
+                      </div>
+                    </div>
+                  
+                  
+                </div>
+                
+          </div>
+        </form>
+        <div class="modal" id="changePModal" tabindex="-1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Changes Applied</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <p>Changes have been applied! You will be redirected to home page</p>
+              </div>
+              <form action="index.html">
+              <div class="modal-footer">
+                
+                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal" >Close</button>
+              </div>
+            </form>
+            </div>
+          </div>
+        </div>
+
+        
         <footer></footer>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="JSh.js"></script>
