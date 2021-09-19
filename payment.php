@@ -1,3 +1,13 @@
+<?php 
+session_start();
+if(!isset($_SESSION['lemail'])){
+  header("location:index.php");
+}
+
+?>
+
+
+
 <html>
     <head>
       <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
@@ -13,72 +23,88 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <header>
-          <nav class="navbar navbar-expand-lg bg-dark navbar-dark" id="navbar">
-            <div class="container">
-            <a href="index.html" class="navbar-brand"><h2>Atatturk</h2></a>
-            <button 
-            class="navbar-toggler" type="button" 
-            data-bs-toggle="collapse" data-bs-target="#navmenu"
-            >
-              <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navmenu">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                      <a href="Booking.html" class="nav-link links">Book</a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="help.html" class="nav-link links">Help</a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="manage.html" class="nav-link links">Manage</a>
-                    </li>
-                   
-                    <li class="nav-item" id="logIn">
-                      <a href="#" class="nav-link links" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
-                    </li>
-                </ul>
-                <div class="dropdown" id="dropIt" style="display:none;">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    Dropdown button
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                  </ul>
-                </div>
-                        
-            </div>
-          </div>
-        </nav>
-
-        </header>
+    <header>
+          <!-- navbar -->
+          <?php
+      include('header.php');
+      ?>
+          </header>
         
         <section>
           <div class="container mt-4 p-3">
       <table class="table table-striped">
           <thead>
             <tr>
-              <th scope="col">#</th>
+              
               <th scope="col">Number of seats</th>
               <th scope="col">Seat Class</th>
-              <th scope="col">Date</th>
+              <th scope="col">Reservation Date</th>
               <th scope="col">Total + VAT</th>
               
             </tr>
           </thead>
           <tbody>
+          <?php
+           include('connection.php');
+          $mail=$_SESSION['lemail'];
+          $query="call show_payment();";
+          $query_fine=mysqli_query($conn, $query);
+         
+          while($row=mysqli_fetch_assoc($query_fine)){
+         echo"
+          <tr>
+            
+            <td>{$row['seats']}</td>
+            <td>{$row['class']}</td>
+            <td>{$row['ddate']}</td>
+            <td>{$row['amount']}</td>
+          </tr>
+
+          ";
+          
+        }
+        $query_fine->close();
+          mysqli_next_result($conn);
+          ?>
+           
+            
+          </tbody>
+        </table>
+        <!-- breakdown -->
+        <section>
+          <div class="container mt-4 p-3">
+      <table class="table table-striped">
+          <thead>
             <tr>
-              <th scope="row">1</th>
-              <td>8</td>
-              <td>Economy</td>
-              <td>2021-05-12</td>
-              <td>12000.00</td>
+              
+              <th scope="col">Bag Charge</th>
+              <th scope="col">Flight charge+Food and drinks</th>
+              <th scope="col">seatprice</th>
+              
               
             </tr>
+          </thead>
+          <tbody>
+          <?php
+           include('connection.php');
+          $mail=$_SESSION['lemail'];
+          $query=" call show_pay_breakdown('$mail');";
+          $query_fine=mysqli_query($conn, $query);
+         
+          while($row=mysqli_fetch_assoc($query_fine)){
+         echo"
+          <tr>
+            
+            <td>{$row['bag']}</td>
+            <td>{$row['duration']}</td>
+            <td>{$row['seatprice']}</td>
+            
+          </tr>
+
+          ";
+          
+        }
+          ?>
            
             
           </tbody>
@@ -91,7 +117,7 @@
               <h1 style="color:A19CA4;" class="mb-5"> <strong><u> Payment</u></strong> </h1>
             </div>
             
-            <form action="">
+            
             <div class="container text-start">
                   <div class="row">             
                     <div class="col-lg-6 offset-lg-3 ">   
@@ -111,27 +137,17 @@
                         <label for="pexDate" class="form-label">Expiry Date</label>
                         <input type="text" id="pexDate" class="form-control" placeholder="Enter Expiry Fate" required/>                     
                       </div>
-  
-                    
-                    <!-- <div class="col-lg-6 offset-lg-3 ">   
-                      <div class="form mx-4 my-2">
-                        <button type="submit" class="btn btn-primary">
-                          Submit
-                        </button>      
-                      </div>
-                      
-                    </div> -->
                     <div class="col-lg-6 offset-lg-3 mt-3 mb-5 ">   
-                      <div class="form mx-4 my-2 d-grid" role="button" data-bs-toggle="modal" data-bs-target="#payModal">
-                        <button type="submit" class="btn btn-primary btn-lgoceed">Submit</button></a>     
-                      </div>
+                      <div class="form mx-4 my-2 d-grid" role="button" >
+                        <button type="button" class="btn btn-primary" id="psubmit">Submit</button></a>     
+                      <!-- </div>data-bs-toggle="modal" data-bs-target="#payModal -->
                       
                     </div>
                   </div>
             </div>
-          </form>
           
-          <div class="modal" id="payModal" tabindex="-1">
+          
+          <!-- <div class="modal" id="payModal" tabindex="-1">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
@@ -141,7 +157,7 @@
                 <div class="modal-body">
                   <p>Payment has been completed! You will be redirected to home page</p>
                 </div>
-                <form action="index.html">
+                <form action="index.php">
                 <div class="modal-footer">
                   
                   <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal" >Close</button>
@@ -149,7 +165,7 @@
               </form>
               </div>
             </div>
-          </div>
+          </div> -->
   
           </section>
 
@@ -173,8 +189,62 @@
               </div>
             </div>
           </footer>
+          <script>
+            $(document).ready(function(){
+            $('#psubmit').click(function(){
+              
+              
+              var pcardNum=$('#pcardNum').val();
+              var pcvv=$('#pcvv').val();
+              var pexDate=$('#pexDate').val();
+              
+            
+              if(pcardNum!='' && pcvv!=''
+              && pexDate!=''
+              ){
+              $.ajax({
+                url: "paypath.php", 
+                method: "POST",
+                data:{
+                  pcardNum:pcardNum,
+                  pcvv:pcvv,
+                  pexDate:pexDate
+                  
+                  
+                      
+                
+                },
+                success:function(data){
+                  if(data ==201){
+                    alert("Wrong");
+                    
+                    //window.open("payment.php","_self");
+                    
+                  }
+                  else{
+                    
+                    window.open("index.php","_self");
+                                      
+                    
+                  }
+
+                }
+
+              });
+            }
+            
+
+
+            })
+            
+            
+
+          });
+
+          </script>        
+
           <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="JSh.js"></script>
+        
         
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
     </body>

@@ -16,7 +16,7 @@
         <header>
             <nav class="navbar navbar-expand-lg bg-dark navbar-dark" id="navbar">
                 <div class="container">
-                <a href="index.html" class="navbar-brand"><h2>Atatturk</h2></a>
+                <a href="index.php" class="navbar-brand"><h2>Atatturk</h2></a>
                 <button 
                 class="navbar-toggler" type="button" 
                 data-bs-toggle="collapse" data-bs-target="#navmenu"
@@ -27,13 +27,13 @@
                 <div class="collapse navbar-collapse" id="navmenu">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                          <a href="Booking.html" class="nav-link links">Book</a>
+                          <a href="Booking.php" class="nav-link links">Book</a>
                         </li>
                         <li class="nav-item">
-                          <a href="help.html" class="nav-link links">Help</a>
+                          <a href="help.php" class="nav-link links">Help</a>
                         </li>
                         <li class="nav-item">
-                          <a href="manage.html" class="nav-link links">Manage</a>
+                          <a href="manage.php" class="nav-link links">Manage</a>
                         </li>
                        
                         <li class="nav-item" id="logIn">
@@ -59,64 +59,83 @@
         <section class="mt-3">
             <div class="container mt-3">
                 <h2 class="text-center mt-5 mb-5">Frequently Asked Questions</h2>
-                <div class="accordion accordion-flush mx-5" id="accordionFlushExample">
+                <div class="accordion accordion-flush mx-5" id="questions">
+                  <!-- item1 -->
                     <div class="accordion-item">
                       <h2 class="accordion-header" id="flush-headingOne">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        <button class="accordion-button collapsed"
+                         type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
+                          >
                           Do i need visa to travel?
                         </button>
                       </h2>
-                      <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                      <div id="flush-collapseOne" class="accordion-collapse collapse"
+                       data-bs-parent="#questions">
                         <div class="accordion-body">For international travels, yes otherwise no</div>
                       </div>
                     </div>
+                    <!-- itm2 -->
                     <div class="accordion-item">
                       <h2 class="accordion-header" id="flush-headingTwo">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                        <button class="accordion-button collapsed" type="button"
+                         data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo"
+                         >
                           Do i need to test for COVID-19?
                         </button>
                       </h2>
-                      <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                      <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                        data-bs-parent="#questions">
                         <div class="accordion-body">Yes. You need to show the test results of COVID-19 </div>
                       </div>
                     </div>
+                    <!-- itm3 -->
                     <div class="accordion-item">
-                      <h2 class="accordion-header" id="flush-headingThree">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button"
+                         data-bs-toggle="collapse" data-bs-target="#flush-collapseThree"
+                          >
                           Are all the flight crews vaccinated for COVID-19?
                         </button>
                       </h2>
-                      <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                      <div id="flush-collapseThree" class="accordion-collapse collapse" 
+                       data-bs-parent="#questions">
                         <div class="accordion-body">Yes ! All of our flight attendates and crew members are vaccinated.</div>
                       </div>
                     </div>
+                    <!-- itm4 -->
                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="flush-headingThree">
-                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                        <h2 class="accordion-header" >
+                          <button class="accordion-button collapsed" type="button"
+                           data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" 
+                           >
                             Will me and family be seated together?
                           </button>
                         </h2>
-                        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                        <div id="flush-collapseFour" class="accordion-collapse collapse"
+                         aria-labelledby="flush-headingThree" data-bs-parent="#questions">
                           <div class="accordion-body">We will try our hardest to ensure that you and your family are seated together.</div>
                         </div>
                       </div>
+                      <!-- imt 5 -->
                       <div class="accordion-item">
-                        <h2 class="accordion-header" id="flush-headingThree">
-                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed" type="button"
+                           data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseThree">
                             When do i check in?
                           </button>
                         </h2>
-                        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                        <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
                           <div class="accordion-body">You must check in before at least 60 minutes from the flight.</div>
                         </div>
                       </div>
                       <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-headingThree">
-                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                          <button class="accordion-button collapsed" type="button"
+                           data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseThree">
                             How many bags can i take?
                           </button>
                         </h2>
-                        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                        <div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
                           <div class="accordion-body">You can take any number of bags but the total weight must be lower than 23 kilograms. If its higher then you will be charged for every extra kilograms</div>
                         </div>
                       </div>

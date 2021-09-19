@@ -1,3 +1,12 @@
+<?php 
+session_start();
+if(!isset($_SESSION['lemail'])){
+  header("location:index.php");
+}
+
+?> 
+
+
 <html>
     <head>
         <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
@@ -18,7 +27,7 @@
         <header>
             <nav class="navbar navbar-expand-lg bg-dark navbar-dark" id="navbar">
                 <div class="container">
-                <a href="index.html" class="navbar-brand"><h2>Atatturk</h2></a>
+                <a href="index.php" class="navbar-brand"><h2>Atatturk</h2></a>
                 <button 
                 class="navbar-toggler" type="button" 
                 data-bs-toggle="collapse" data-bs-target="#navmenu"
@@ -29,13 +38,13 @@
                 <div class="collapse navbar-collapse" id="navmenu">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                          <a href="Booking.html" class="nav-link links">Book</a>
+                          <a href="Booking.php" class="nav-link links">Book</a>
                         </li>
                         <li class="nav-item">
-                          <a href="help.html" class="nav-link links">Help</a>
+                          <a href="help.php" class="nav-link links">Help</a>
                         </li>
                         <li class="nav-item">
-                          <a href="manage.html" class="nav-link links">Manage</a>
+                          <a href="manage.php" class="nav-link links">Manage</a>
                         </li>
                        
                         <li class="nav-item" id="logIn">
@@ -47,7 +56,7 @@
                         Profile
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="manage.html">Manage</a></li>
+                        <li><a class="dropdown-item" href="manage.php">Manage</a></li>
                         <li><a class="dropdown-item" href="#">History</a></li>
                         <li><a class="dropdown-item" href="#">Sign Out</a></li>
                       </ul>
@@ -60,32 +69,44 @@
         <div class="container text-center p-4 mb-2 mt-4">
           <h1 style="color:A19CA4;" class="mt-4"> <strong><u> Make changes to your profile</u></strong> </h1>
         </div>
-        <form action="">
+        <h6 class="text-center">If you do not want something to change then please keep it empty</h6>
+        
           <div class="container text-start">
                 <div class="row">             
                   <div class="col-lg-6 offset-lg-3 ">   
+                    
                     <div class="form mx-4 mb-2 mt-4 ">
-                      <label for="oemail" class="form-label"><b>Old Email</b></label>
-                      <input type="text" id="oemail" class="form-control" placeholder="Enter old email" required/>                     
+                    <?php
+                      include('connection.php');
+                      $mail=$_SESSION['lemail'];
+                      $query1=" call get_user_profile('$mail');";
+                    $query_fine1=mysqli_query($conn, $query1);
+                if($query_fine1) {
+               while($row=mysqli_fetch_assoc($query_fine1)) {         
+                    echo "
+                    <p><b>Name:</b> $row[FirsName] $row[LastName]</p>
+                    <p><b>Address:</b> $row[Address]</p>
+                    <p><b>Phone:</b> $row[Phone]</p>
+                    <p><b>Refund amount:</b> $row[amount]</p>
+                    
+                    ";
+ 
+                    
+
+
+               }}
+            ?>          
                     </div>
-                    <div class="form mx-4 mb-2 mt-4 ">
-                      <label for="nemail" class="form-label"><b>New Email</b></label>
-                      <input type="text" id="nemail" class="form-control" placeholder="Enter new email" required/>                     
+                    <div class="container">
+                    <input class="form-check-input" type="radio" name="parm" id="pradio"
+                    >
+                    <label class="form-check-label" for="flexRadioDefault1">
+                      Change pass word
+                    </label>
                     </div>
                   </div>
-                  <div class="col-lg-6 offset-lg-3 ">   
-                    <div class="form mx-4 my-2 ">
-                      <label for="opassword" class="form-label">Old password</label>
-                      <input type="password" id="opassword" class="form-control" placeholder="Enter old password"/>                     
-                    </div>
-                  </div>
-                  <div class="col-lg-6 offset-lg-3 ">   
-                    <div class="form mx-4 my-2 ">
-                      <label for="npassword" class="form-label">New password</label>
-                      <input type="password" id="npassword" class="form-control" placeholder="Enter new password"/>                     
-                    </div>
-                  </div>
-                    <div class="col-lg-6 offset-lg-3 ">   
+                  
+                    <div class="col-lg-6 offset-lg-3 " id="changepass" style="display: none;">   
                       <div class="form mx-4 my-2 ">
                         <button type="submit" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#changePModal">Submit</button>
                         <button type="submit" class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#changePModal">Delete Account</button>
@@ -96,8 +117,13 @@
                 </div>
                 
           </div>
-        </form>
-        <div class="modal" id="changePModal" tabindex="-1">
+          <script>
+              $('#pradio').on('change', function() {
+                $('#changepass').show();
+            });
+          </script>
+        
+        <!-- <div class="modal" id="changePModal" tabindex="-1">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -107,7 +133,7 @@
               <div class="modal-body">
                 <p>Changes have been applied! You will be redirected to home page</p>
               </div>
-              <form action="index.html">
+              <form action="index.php">
               <div class="modal-footer">
                 
                 <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal" >Close</button>
@@ -115,10 +141,83 @@
             </form>
             </div>
           </div>
-        </div>
+        </div> -->
 
         
         <footer></footer>
+        <script>
+          $(document).ready(function(){
+            $('#ccancel').click(function(){
+              var cancel=211;
+              $.ajax({
+                url: "paypath.php",
+                method: "POST",
+                data:{
+                  naddress:naddress,
+                },
+                success:function(data){
+                  if(data ==201){
+                    alert(corigin);
+                    //window.open("payment.php","_self");  
+                  }
+                  else{
+
+                  }
+                }
+              });
+            });
+
+
+            $('#csubmit').click(function(){
+              
+              
+              var corigin=$('#corigin').val();
+              var cto=$('#cto').val();
+              var ccabinClass=$('#ccabinClass').val();
+              
+            
+              
+              $.ajax({
+                url: "changepath.php",
+                method: "POST",
+                data:{
+                  corigin:corigin,
+                  cto:cto,
+                  ccabinClass:ccabinClass
+                  
+                  
+                      
+                
+                },
+                success:function(data){
+                  if(data ==201){
+                    alert(corigin);
+                    //window.open("payment.php","_self");
+                    
+                  }
+                  else{
+                    
+                    // location.reload();
+                    // alert("correct");
+                    // console.log(data);
+                                      
+                    
+                  }
+
+                }
+
+              });
+            
+            
+
+
+            })
+            
+            
+
+          });
+
+        </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="JSh.js"></script>
         

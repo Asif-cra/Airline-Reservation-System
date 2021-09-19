@@ -1,3 +1,8 @@
+<?php
+session_start();
+
+?>
+
 <html>
     <head>
         <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
@@ -16,7 +21,7 @@
         <header>
             <nav class="navbar navbar-expand-lg bg-dark navbar-dark" id="navbar">
                 <div class="container">
-                <a href="index.html" class="navbar-brand"><h2>Atatturk</h2></a>
+                <a href="index.php" class="navbar-brand"><h2>Atatturk</h2></a>
                 <button 
                 class="navbar-toggler" type="button" 
                 data-bs-toggle="collapse" data-bs-target="#navmenu"
@@ -27,13 +32,13 @@
                 <div class="collapse navbar-collapse" id="navmenu">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                          <a href="Booking.html" class="nav-link links">Book</a>
+                          <a href="Booking.php" class="nav-link links">Book</a>
                         </li>
                         <li class="nav-item">
-                          <a href="help.html" class="nav-link links">Help</a>
+                          <a href="help.php" class="nav-link links">Help</a>
                         </li>
                         <!-- <li class="nav-item">
-                          <a href="manage.html" class="nav-link links">Manage</a>
+                          <a href="manage.php" class="nav-link links">Manage</a>
                         </li> -->
                        
                         <li class="nav-item" id="logIn">
@@ -45,7 +50,7 @@
                         Profile
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="manage.html">Manage</a></li>
+                        <li><a class="dropdown-item" href="manage.php">Manage</a></li>
                         <li><a class="dropdown-item" href="#">History</a></li>
                         <li><a class="dropdown-item" href="#">Sign Out</a></li>
                       </ul>
@@ -56,59 +61,65 @@
             </nav>
 
         </header>
-        <div class="container-fluid m-3 p-3">
-            <h4 style="color:A19CA4;margin-left: 6rem;">| Manage your flight</h4>
+        <div class="container-fluid mt-4 mb-4">
+
+        <h4 style="color:A19CA4;margin-left: 6rem;">| Flight Details</h4>
+
         </div>
-        <section>
-            <div class="container mt-4 p-3">
-        <table class="table table-striped">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Origin</th>
-                <th scope="col">Destination</th>
-                <th scope="col">Date</th>
-                <th scope="col">Payment Status</th>
-                <th></th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Paris</td>
-                <td>New York</td>
-                <td>2021-08-16</td>
-                <td>Completed</td>
-                <td><a href="change.html" class="btn btn-success disabled" >Change</a></td>
-                <td><a href="ticket.html" class="btn btn-primary disabled" >Print</a></td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Paris</td>
-                <td>Las Vegas</td>
-                <td>2021-08-17</td>
-                <td>Incomplete</td>
-                <td><a href="change.html" class="btn btn-success">Change</a></td>
-                <td><button type="button" onclick="printticket()" class="btn btn-primary">Print</button></td>
-              </tr>
-              
-            </tbody>
-          </table>
-        </div>
-        </section>
-        <iframe id="frame" src="ticket.html" style="display: none;"></iframe>
+        <div class="container mt-5">
+        <?php
+                include('connection.php');
+               $rid=$_GET['rid'];
+               $sid=$_GET['sc_id'];
+               $org=$_GET['origin'];
+               $dest=$_GET['cdestination'];
+                $query="call details('$rid','$sid');";
+                $query_fine=mysqli_query($conn, $query);
+                
+                if(mysqli_num_rows($query_fine)>0){
+                while($row=mysqli_fetch_assoc($query_fine)){
 
 
-<script type="text/javascript">
-  function printticket() {
-    document.getElementById('frame').contentWindow.window.print();
-  }
-</script>
-        
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="jq.js"></script>    
-    <script src="jsBookin.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
-    </body>
+
+         echo "<p><b>   Flight Id                     :</b>  $row[Flight_id]</p>
+         <p><b>   Flying From                   :</b>    $org</p>
+         <p><b>   Flying From                   :</b>    $row[origin]</p>
+         <p><b>   Flying to                     :</b>    $dest</p>
+         <p><b>   Flying to                     :</b>    $row[destiny]</p>
+         <p><b>   Flight leaves from origin     :</b>    $row[Departure_time]</p>
+         <p><b>   Flight Arrives On destination :</b>    $row[Arrival_time]</p>
+         <p><b>   Flight duration               :</b>    $row[Duration]</p>"
+         ;
+        }}
+        $query_fine->close();
+          mysqli_next_result($conn);
+        ?>
+        </div>
+        <hr>
+        <div class="container">
+        <?php 
+             include('connection.php');
+             $rid=$_GET['rid'];
+             $query1="select Seat_Id from `seat reserved`
+             where r_id='$rid';";
+                $query_fine1=mysqli_query($conn, $query1);
+            if($query_fine1) {
+                while($row=mysqli_fetch_assoc($query_fine1)) {  
+                    echo "<p><b> Seat Id:</b> $row[Seat_Id] </p>";
+                }
+                
+        }
+        else echo"error";
+        ?>
+        </div>
+
+
+
+
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+</body>
 </html>

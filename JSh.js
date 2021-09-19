@@ -12,39 +12,27 @@ window.onscroll = function() {
 }
 
 //search card
-let secondinp= document.getElementById('dplace');
-let card=document.querySelector('.box-container')
-secondinp.addEventListener('keyup',function(){
-    card.classList.add('bigger-card');
-})
-
-document.getElementById("cardSubmit").onclick=function(){
-    // let originlPlace=document.getElementById("oplace").value;
-    // let destplace=document.getElementById("dplace").value;
-    // console.log(originlPlace);
-    // document.getElementById("show").innerHTML=originlPlace;
-     location.href="Booking.html";
-};
+// let secondinp= document.getElementById('dplace');
+// let card=document.querySelector('.box-container')
+// secondinp.addEventListener('change',function(){
+//   alert("enter");
+//     card.classList.add('bigger-card');
+// })
 
 
 
+
+/*reg modal */
+
+ 
 /*login dropdown */
-var sub= document.querySelector("#signIn");
-var drp= document.querySelector("#dropIt");
-var lgn= document.querySelector("#logIn");
-sub.addEventListener("click",()=>{
-    lgn.style.display="none";
-     drp.style.display="block";
-})
+// var sub= document.querySelector("#signIn");
+// var drp= document.querySelector("#dropIt");
+// var lgn= document.querySelector("#logIn");
+// sub.addEventListener("click",()=>{
+//     lgn.style.display="none";
+//      drp.style.display="block";
+// })
 
 /*ticket print */
-function printDiv(divName) {
-  var printContents = document.getElementById(divName).innerHTML;
-  var originalContents = document.body.innerHTML;
 
-  document.body.innerHTML = printContents;
-
-  window.print();
-
-  document.body.innerHTML = originalContents;
-}
